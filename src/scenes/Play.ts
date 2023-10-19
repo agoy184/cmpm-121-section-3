@@ -41,7 +41,7 @@ export default class Play extends Phaser.Scene {
       )
       .setOrigin(0, 0);
 
-    this.spinner = this.add.rectangle(100, 100, 50, 50, 0xff0000);
+    this.spinner = this.add.rectangle(100, 450, 50, 50, 0xff0000);
   }
 
   update(_timeMs: number, delta: number) {
@@ -49,9 +49,11 @@ export default class Play extends Phaser.Scene {
 
     if (this.left!.isDown) {
       this.spinner!.rotation -= delta * this.rotationSpeed;
+      this.spinner!.x -= 10;
     }
     if (this.right!.isDown) {
       this.spinner!.rotation += delta * this.rotationSpeed;
+      this.spinner!.x += 10;
     }
 
     if (this.fire!.isDown) {
@@ -61,6 +63,7 @@ export default class Play extends Phaser.Scene {
         duration: 300,
         ease: Phaser.Math.Easing.Sine.Out,
       });
+      this.spinner!.y -= 50;
     }
   }
 }
