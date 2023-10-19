@@ -14,10 +14,12 @@ export default class Play extends Phaser.Scene {
 
   constructor() {
     super("play");
+
   }
 
   preload() {
     this.load.image("starfield", starfieldUrl);
+    
   }
 
   #addKey(
@@ -30,7 +32,7 @@ export default class Play extends Phaser.Scene {
     this.fire = this.#addKey("F");
     this.left = this.#addKey("LEFT");
     this.right = this.#addKey("RIGHT");
-
+    
     this.starfield = this.add
       .tileSprite(
         0,
@@ -46,24 +48,24 @@ export default class Play extends Phaser.Scene {
 
   update(_timeMs: number, delta: number) {
     this.starfield!.tilePositionX -= 4;
-
-    if (this.left!.isDown) {
+    console.log(this.spinner!.y);
+    if (this.left!.isDown && this.spinner!.y == 450) {
       this.spinner!.rotation -= delta * this.rotationSpeed;
       this.spinner!.x -= 10;
     }
-    if (this.right!.isDown) {
+    if (this.right!.isDown && this.spinner!.y == 450) {
       this.spinner!.rotation += delta * this.rotationSpeed;
       this.spinner!.x += 10;
     }
 
     if (this.fire!.isDown) {
+      //isTrue = true;
       this.tweens.add({
         targets: this.spinner,
         scale: { from: 1.5, to: 1 },
         duration: 300,
         ease: Phaser.Math.Easing.Sine.Out,
       });
-      this.spinner!.y -= 50;
     }
   }
 }
